@@ -10,4 +10,3 @@ This project helps users record daily expenses, view them, and calculate total s
 - Data persistence using file storage
 - Simple and beginner-friendly CLI interface
 
-## Project Structure
