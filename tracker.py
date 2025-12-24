@@ -1,20 +1,33 @@
 def add_expense():
-    amount = float(input("Enter amount: "))
-    category = input("Enter category: ")
-    note = input("Enter note: ")
+    try:
+        amount = float(input("Enter amount: "))
+        category = input("Enter category: ")
+        note = input("Enter note: ")
 
-    with open("expenses.txt", "a") as f:
-        f.write(f"{amount},{category},{note}\n")
+        with open("expenses.txt", "a") as f:
+            f.write(f"{amount},{category},{note}\n")
 
-    print("✅ Expense added")
+        print("✅ Expense added")
+
+    except ValueError:
+        print("❌ Please enter a valid number for amount")
 
 
 def view_expenses():
+    total = 0.0
     print("\n--- Expenses ---")
-    with open("expenses.txt", "r") as f:
-        for line in f:
-            amount, category, note = line.strip().split(",")
-            print(f"₹{amount} | {category} | {note}")
+
+    try:
+        with open("expenses.txt", "r") as f:
+            for line in f:
+                amount, category, note = line.strip().split(",")
+                total += float(amount)
+                print(f"₹{amount} | {category} | {note}")
+
+        print(f"\n💰 Total Expense: ₹{total}")
+
+    except FileNotFoundError:
+        print("No expenses found yet.")
 
 
 while True:
@@ -29,6 +42,7 @@ while True:
     elif choice == "2":
         view_expenses()
     elif choice == "3":
+        print("👋 Goodbye!")
         break
     else:
         print("❌ Invalid choice")
